@@ -16,6 +16,7 @@ var speed: int = 50
 
 func _ready() -> void:
 	connect("body_entered", self, "_on_body_entered")
+	add_to_group(game.GROUP_BIRDS)
 
 	set_state(states.STATE_FLYING)
 
