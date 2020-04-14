@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	state.update()
+	state.update(delta)
 
 
 func _on_body_entered(other_body: Node) -> void:
@@ -65,7 +65,7 @@ class BirdState:
 		self.bird = bird
 		pass
 
-	func update() -> void:
+	func update(delta: float) -> void:
 		pass
 
 	func input(event: InputEvent) -> void:
@@ -103,7 +103,7 @@ class FlappingState extends BirdState:
 		flap()
 
 
-	func update() -> void:
+	func update(delta: float) -> void:
 		if bird.rotation_degrees < -30: # Rising
 			bird.rotation_degrees = -30
 			bird.angular_velocity = 0
@@ -114,6 +114,8 @@ class FlappingState extends BirdState:
 
 	func input(event: InputEvent) -> void:
 		if event.is_action_pressed("flap"):
+			flap()
+		elif(event.is_pressed() and event.button_index == BUTTON_LEFT):
 			flap()
 
 
