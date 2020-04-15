@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name QBird
 
 onready var state
+var prev_state
 enum states {
 	STATE_FLYING
 	STATE_FLAPPING
@@ -36,6 +37,8 @@ func _on_body_entered(other_body: Node) -> void:
 func set_state(new_state: int) -> void:
 	if state:
 		state.exit()
+
+	prev_state = get_state()
 
 	if   new_state == states.STATE_FLYING:   state = FlyingState.new(self)
 	elif new_state == states.STATE_FLAPPING: state = FlappingState.new(self)
@@ -131,6 +134,8 @@ class FlappingState extends BirdState:
 		bird.angular_velocity = -3
 		bird.get_node("anim").play("flap")
 
+		audio_player.get_node("sfx_wing").play()
+
 
 # -------------------------------------------------------------------------
 class HitState extends BirdState:
@@ -140,6 +145,9 @@ class HitState extends BirdState:
 
 		var other_body: Node = bird.get_colliding_bodies()[0]
 		bird.add_collision_exception_with(other_body)
+
+		audio_player.get_node("sfx_hit").play()
+		audio_player.get_node("sfx_die").play()
 
 	func on_body_entered(other_body: Node) -> void:
 		if other_body.is_in_group(game.GROUP_GROUNDS):
@@ -151,3 +159,6 @@ class GroundedState extends BirdState:
 	func _init(b: QBird).(b) -> void:
 		bird.linear_velocity = Vector2.ZERO
 		bird.angular_velocity = 0
+
+		if bird.prev_state != bird.states.STATE_HIT:
+			audio_player.get_node("sfx_hit").play()

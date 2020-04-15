@@ -22,6 +22,8 @@ func change_stage(stage_path: String) -> void:
 	$anim.play("fade_in")
 	yield($anim, "animation_finished")
 
+	audio_player.get_node("sfx_swooshing").play()
+
 	get_tree().change_scene(stage_path)
 	emit_signal("stage_changed")
 
