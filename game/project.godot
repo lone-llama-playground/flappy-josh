@@ -51,7 +51,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Flappy Josh"
-run/main_scene="res://stages/game_stage.tscn"
+run/main_scene="res://stages/menu_stage.tscn"
 config/icon="res://icon.png"
 
 [autoload]
