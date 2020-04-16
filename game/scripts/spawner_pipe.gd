@@ -1,5 +1,5 @@
 extends Node2D
-class_name QSpawnerPipe
+class_name QSpawnerPipe, "res://sprites/pipe_green_top.png"
 
 onready var scn_pipe: PackedScene = preload("res://scenes/pipe.tscn")
 
@@ -45,17 +45,16 @@ func go_init_position() -> void:
 
 
 func spawn_and_move() -> void:
-	spawn_pipe()
-	go_next_position()
+	if is_inside_tree():
+		spawn_pipe()
+		go_next_position()
 
 
 func spawn_pipe() -> void:
 	var new_pipe: QPipe = scn_pipe.instance()
-
-	new_pipe.position = position
 	new_pipe.connect("tree_exited", self, "spawn_and_move")
-
-	$container.add_child(new_pipe)
+	new_pipe.position = position
+	$container.call_deferred("add_child", new_pipe)
 
 
 func go_next_position() -> void:

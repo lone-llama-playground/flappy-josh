@@ -40,19 +40,20 @@ _global_script_classes=[ {
 "path": "res://scripts/spawner_pipe.gd"
 } ]
 _global_script_class_icons={
-"QBird": "",
+"QBird": "res://sprites/bird_orange_0.png",
 "QCamera": "",
 "QGround": "",
 "QPipe": "",
-"QSpawnerGround": "",
-"QSpawnerPipe": ""
+"QSpawnerGround": "res://sprites/ground.png",
+"QSpawnerPipe": "res://sprites/pipe_green_top.png"
 }
 
 [application]
 
 config/name="Flappy Josh"
+config/description="A clone of flappy birds following https://www.youtube.com/playlist?list=PLv3l-oZCXaql20IlPe7gfBEzomnPSLekY"
 run/main_scene="res://stages/menu_stage.tscn"
-config/icon="res://icon.png"
+config/icon="res://sprites/flappy_bird_icon.png"
 
 [autoload]
 
@@ -80,4 +81,5 @@ flap={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_environment="res://default_env.tres"
